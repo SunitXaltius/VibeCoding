@@ -60,6 +60,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+python seed.py
 python app.py
 ```
 
@@ -120,3 +121,44 @@ Flask uses Jinja templates. The home template *extends* the base template, which
 - [ ] The terminal does not show an error when the page loads.
 
 Stop here after testing. Review the proposed change in `prompts/prompt-log.md`, then say **continue** when you are ready for the next milestone.
+
+## Milestone 2: Database and searchable catalogue
+
+### Review before the change
+
+- **Problem:** MiniMart has no place to store products and visitors cannot see a catalogue.
+- **Risk:** An incorrect schema can allow invalid stock or prices. Building SQL with search text can also create a SQL-injection vulnerability.
+- **Accepted proposal:** Add the four planned tables, a small database helper, three example products, and a read-only catalogue. Use database checks and SQL placeholders. The learner's “continue” approved moving to this published milestone.
+
+This milestone does not add product details, accounts, carts, or administrator tools yet.
+
+### What each new or changed file does
+
+- `schema.sql` defines the `users`, `products`, `orders`, and `order_items` tables.
+- `database.py` opens one SQLite connection for a request and closes it afterwards.
+- `seed.py` creates the tables and adds three example products only when the catalogue is empty.
+- `app.py` now has a `/products` route. It uses `?` placeholders instead of putting search text directly into SQL.
+- `templates/products.html` displays the catalogue and search form.
+- `.gitignore` prevents local databases, virtual environments, and secret `.env` files from being committed.
+
+### Run this milestone
+
+With the virtual environment active, run:
+
+```bash
+python seed.py
+python app.py
+```
+
+Visit <http://127.0.0.1:5000/products>. Try searching for `mug`, then try a word that is not in the catalogue.
+
+### Test checklist
+
+- [ ] `python seed.py` reports that the database is ready.
+- [ ] Running `python seed.py` a second time does not add duplicate products.
+- [ ] The Products link opens a catalogue containing three example products.
+- [ ] Searching for `mug` displays only the Coffee Mug.
+- [ ] A search with no matches shows a helpful message.
+- [ ] The browser and terminal show no errors.
+
+Stop here after testing. Review the accepted change in `prompts/prompt-log.md`, then say **continue** when you are ready.

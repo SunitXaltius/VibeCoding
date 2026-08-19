@@ -18,4 +18,24 @@ Create the MiniMart beginner e-commerce application as a sequence of small, expl
 
 ### Acceptance status
 
-Pending learner review and testing.
+Accepted when the learner replied “continue.”
+
+## Milestone 2 — 2026-08-19
+
+### Prompt summary
+
+Continue to the next published milestone after the Flask home page: introduce the SQLite data structure and a small public product catalogue while keeping the change suitable for a beginner.
+
+### Problem and risk reviewed
+
+MiniMart cannot store or list products yet. Invalid table rules could permit bad data, and unsafe search SQL could allow injection.
+
+### Accepted change
+
+- Add all four planned SQLite tables with basic data checks and foreign keys.
+- Add a database connection helper and an idempotent example-data script.
+- Add a public catalogue route with parameterised product search.
+- Add a Bootstrap catalogue template and navigation link.
+- Ignore the generated database and other local files in Git.
+
+The learner's “continue” approved starting the next milestone already listed in the course plan.

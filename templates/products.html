@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Products | MiniMart{% endblock %}
+
+{% block content %}
+  <h1 class="mb-4">Products</h1>
+
+  <form class="row g-2 mb-4" method="get" action="{{ url_for('products') }}">
+    <div class="col-sm-9">
+      <label class="visually-hidden" for="search">Search products</label>
+      <input class="form-control" id="search" name="search" value="{{ search }}" placeholder="Search products">
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary w-100" type="submit">Search</button>
+    </div>
+  </form>
+
+  {% if products %}
+    <div class="row g-4">
+      {% for product in products %}
+        <div class="col-md-6 col-lg-4">
+          <article class="card h-100">
+            <div class="card-body">
+              <h2 class="h5 card-title">{{ product.name }}</h2>
+              <p class="card-text">{{ product.description }}</p>
+              <p class="fw-bold mb-1">£{{ '%.2f'|format(product.selling_price) }}</p>
+              <p class="text-muted mb-0">{{ product.stock }} in stock</p>
+            </div>
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">No products matched your search.</div>
+  {% endif %}
+{% endblock %}
